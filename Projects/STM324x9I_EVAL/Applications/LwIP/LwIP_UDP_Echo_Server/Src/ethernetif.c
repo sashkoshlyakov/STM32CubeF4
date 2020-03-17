@@ -45,7 +45,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 #include "lwip/timeouts.h"
-#include "lwip/tcpip.h"
 #include "netif/etharp.h"
 #include "ethernetif.h"
 #include <string.h>

@@ -62,9 +62,6 @@
 @note The application needs to ensure that the SysTick time base is always set to 1 millisecond
       to have correct HAL operation.
 
-@par Keywords
-
-Display, LTCD, Pictures, SD Card, BMP, Background, Foreground, Layers,
 
 @par Directory contents
 

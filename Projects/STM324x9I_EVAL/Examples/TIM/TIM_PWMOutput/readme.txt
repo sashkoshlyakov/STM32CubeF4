@@ -1,5 +1,5 @@
 /**
-  @page TIM_PWMOutput TIM PWM Output example
+  @page TIM_PWMOutput TIM_PWMOutput example
 
   @verbatim
   ******************** (C) COPYRIGHT 2017 STMicroelectronics *******************
@@ -82,9 +82,6 @@ The PWM waveform can be displayed using an oscilloscope.
 @note The application needs to ensure that the SysTick time base is always set to 1 millisecond
       to have correct HAL operation.
 
-@par Keywords
-
-Timers, Output, signal, PWM, Oscilloscope, Frequency, Duty cycle, Waveform
 
 @par Directory contents 
 

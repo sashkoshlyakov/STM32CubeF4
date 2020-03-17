@@ -20,7 +20,7 @@
 
 @par Description
 
-Demonstration from Draupner Graphics for MCUs with 480x272 LCDs attached.
+This is a demonstration from Draupner Graphics for MCUs with 480x272 LCDs attached.
 
 Requirements:
 	Resolution: 480 * 272

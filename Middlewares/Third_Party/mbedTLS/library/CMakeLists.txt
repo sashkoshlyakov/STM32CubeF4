@@ -14,8 +14,6 @@ set(src_crypto
     blowfish.c
     camellia.c
     ccm.c
-    chacha20.c
-    chachapoly.c
     cipher.c
     cipher_wrap.c
     cmac.c
@@ -40,7 +38,6 @@ set(src_crypto
     md5.c
     md_wrap.c
     memory_buffer_alloc.c
-    nist_kw.c
     oid.c
     padlock.c
     pem.c
@@ -52,7 +49,6 @@ set(src_crypto
     pkwrite.c
     platform.c
     platform_util.c
-    poly1305.c
     ripemd160.c
     rsa.c
     rsa_internal.c
@@ -98,26 +94,9 @@ if(CMAKE_COMPILER_IS_CLANG)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wmissing-declarations -Wmissing-prototypes -Wdocumentation -Wno-documentation-deprecated-sync -Wunreachable-code")
 endif(CMAKE_COMPILER_IS_CLANG)
 
-if(UNSAFE_BUILD)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wno-error")
-    set(CMAKE_C_FLAGS_ASAN "${CMAKE_C_FLAGS_ASAN} -Wno-error")
-    set(CMAKE_C_FLAGS_ASANDBG "${CMAKE_C_FLAGS_ASANDBG} -Wno-error")
-endif(UNSAFE_BUILD)
-
 if(WIN32)
     set(libs ${libs} ws2_32)
 endif(WIN32)
-
-if(${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
-    SET(CMAKE_C_ARCHIVE_CREATE   "<CMAKE_AR> Scr <TARGET> <LINK_FLAGS> <OBJECTS>")
-    SET(CMAKE_CXX_ARCHIVE_CREATE "<CMAKE_AR> Scr <TARGET> <LINK_FLAGS> <OBJECTS>")
-    SET(CMAKE_C_ARCHIVE_FINISH   "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
-    SET(CMAKE_CXX_ARCHIVE_FINISH "<CMAKE_RANLIB> -no_warning_for_no_symbols -c <TARGET>")
-endif()
-
-if(HAIKU)
-    set(libs ${libs} network)
-endif(HAIKU)
 
 if(USE_PKCS11_HELPER_LIBRARY)
     set(libs ${libs} pkcs11-helper)
@@ -165,15 +144,15 @@ endif(USE_STATIC_MBEDTLS_LIBRARY)
 
 if(USE_SHARED_MBEDTLS_LIBRARY)
     add_library(mbedcrypto SHARED ${src_crypto})
-    set_target_properties(mbedcrypto PROPERTIES VERSION 2.16.2 SOVERSION 3)
+    set_target_properties(mbedcrypto PROPERTIES VERSION 2.11.0 SOVERSION 3)
     target_link_libraries(mbedcrypto ${libs})
 
     add_library(mbedx509 SHARED ${src_x509})
-    set_target_properties(mbedx509 PROPERTIES VERSION 2.16.2 SOVERSION 0)
+    set_target_properties(mbedx509 PROPERTIES VERSION 2.11.0 SOVERSION 0)
     target_link_libraries(mbedx509 ${libs} mbedcrypto)
 
     add_library(mbedtls SHARED ${src_tls})
-    set_target_properties(mbedtls PROPERTIES VERSION 2.16.2 SOVERSION 12)
+    set_target_properties(mbedtls PROPERTIES VERSION 2.11.0 SOVERSION 11)
     target_link_libraries(mbedtls ${libs} mbedx509)
 
     install(TARGETS mbedtls mbedx509 mbedcrypto

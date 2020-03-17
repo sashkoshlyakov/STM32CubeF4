@@ -12,16 +12,16 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  *                      http://www.st.com/SLA0044
   *
   ******************************************************************************
   */
 
-/* BSPDependencies
-- "stm32xxxxx_{eval}{discovery}{nucleo_144}.c"
-- "stm32xxxxx_{eval}{discovery}_io.c"
-- "stm32xxxxx_{eval}{discovery}{adafruit}_sd.c"
-EndBSPDependencies */
+  /* BSPDependencies
+  - "stm32xxxxx_{eval}{discovery}{nucleo_144}.c"
+  - "stm32xxxxx_{eval}{discovery}_io.c"
+  - "stm32xxxxx_{eval}{discovery}{adafruit}_sd.c"
+  EndBSPDependencies */
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_msc_storage_template.h"
@@ -35,30 +35,34 @@ EndBSPDependencies */
 /* Extern function prototypes ------------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
-#define STORAGE_LUN_NBR                  1U
-#define STORAGE_BLK_NBR                  0x10000U
-#define STORAGE_BLK_SIZ                  0x200U
+#define STORAGE_LUN_NBR                  1
+#define STORAGE_BLK_NBR                  0x10000
+#define STORAGE_BLK_SIZ                  0x200
 
-int8_t STORAGE_Init(uint8_t lun);
+int8_t STORAGE_Init (uint8_t lun);
 
-int8_t STORAGE_GetCapacity(uint8_t lun, uint32_t *block_num,
+int8_t STORAGE_GetCapacity (uint8_t lun,
+                           uint32_t *block_num,
                            uint16_t *block_size);
 
-int8_t  STORAGE_IsReady(uint8_t lun);
+int8_t  STORAGE_IsReady (uint8_t lun);
 
-int8_t  STORAGE_IsWriteProtected(uint8_t lun);
+int8_t  STORAGE_IsWriteProtected (uint8_t lun);
 
-int8_t STORAGE_Read(uint8_t lun, uint8_t *buf, uint32_t blk_addr,
-                    uint16_t blk_len);
+int8_t STORAGE_Read (uint8_t lun,
+                        uint8_t *buf,
+                        uint32_t blk_addr,
+                        uint16_t blk_len);
 
-int8_t STORAGE_Write(uint8_t lun, uint8_t *buf, uint32_t blk_addr,
-                     uint16_t blk_len);
+int8_t STORAGE_Write (uint8_t lun,
+                        uint8_t *buf,
+                        uint32_t blk_addr,
+                        uint16_t blk_len);
 
-int8_t STORAGE_GetMaxLun(void);
+int8_t STORAGE_GetMaxLun (void);
 
 /* USB Mass storage Standard Inquiry Data */
-int8_t  STORAGE_Inquirydata[] =  /* 36 */
-{
+int8_t  STORAGE_Inquirydata[] = {//36
 
   /* LUN 0 */
   0x00,
@@ -72,7 +76,7 @@ int8_t  STORAGE_Inquirydata[] =  /* 36 */
   'S', 'T', 'M', ' ', ' ', ' ', ' ', ' ', /* Manufacturer : 8 bytes */
   'P', 'r', 'o', 'd', 'u', 'c', 't', ' ', /* Product      : 16 Bytes */
   ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-  '0', '.', '0', '1',                     /* Version      : 4 Bytes */
+  '0', '.', '0' ,'1',                     /* Version      : 4 Bytes */
 };
 
 USBD_StorageTypeDef USBD_MSC_Template_fops =
@@ -94,7 +98,7 @@ USBD_StorageTypeDef USBD_MSC_Template_fops =
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-int8_t STORAGE_Init(uint8_t lun)
+int8_t STORAGE_Init (uint8_t lun)
 {
   return (0);
 }
@@ -106,7 +110,7 @@ int8_t STORAGE_Init(uint8_t lun)
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-int8_t STORAGE_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_size)
+int8_t STORAGE_GetCapacity (uint8_t lun, uint32_t *block_num, uint16_t *block_size)
 {
   *block_num  = STORAGE_BLK_NBR;
   *block_size = STORAGE_BLK_SIZ;
@@ -120,7 +124,7 @@ int8_t STORAGE_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_siz
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-int8_t  STORAGE_IsReady(uint8_t lun)
+int8_t  STORAGE_IsReady (uint8_t lun)
 {
   return (0);
 }
@@ -132,7 +136,7 @@ int8_t  STORAGE_IsReady(uint8_t lun)
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-int8_t  STORAGE_IsWriteProtected(uint8_t lun)
+int8_t  STORAGE_IsWriteProtected (uint8_t lun)
 {
   return  0;
 }
@@ -144,8 +148,10 @@ int8_t  STORAGE_IsWriteProtected(uint8_t lun)
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-int8_t STORAGE_Read(uint8_t lun, uint8_t *buf,
-                    uint32_t blk_addr, uint16_t blk_len)
+int8_t STORAGE_Read (uint8_t lun,
+                 uint8_t *buf,
+                 uint32_t blk_addr,
+                 uint16_t blk_len)
 {
   return 0;
 }
@@ -156,8 +162,10 @@ int8_t STORAGE_Read(uint8_t lun, uint8_t *buf,
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-int8_t STORAGE_Write(uint8_t lun, uint8_t *buf,
-                     uint32_t blk_addr, uint16_t blk_len)
+int8_t STORAGE_Write (uint8_t lun,
+                  uint8_t *buf,
+                  uint32_t blk_addr,
+                  uint16_t blk_len)
 {
   return (0);
 }
@@ -168,7 +176,7 @@ int8_t STORAGE_Write(uint8_t lun, uint8_t *buf,
 * Output         : None.
 * Return         : None.
 *******************************************************************************/
-int8_t STORAGE_GetMaxLun(void)
+int8_t STORAGE_GetMaxLun (void)
 {
   return (STORAGE_LUN_NBR - 1);
 }

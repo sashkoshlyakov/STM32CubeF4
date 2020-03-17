@@ -108,9 +108,6 @@ the Ethernet Link ISR.
       
 For more details about this application, refer to UM1709 "STM32Cube Ethernet IAP application"
 
-@par Keywords
-
-IAP, In-Application Programming, Ethernet, ETH, LwIP, TFTP, TCP/IP, HTTP, LCD
 
 @par Directory contents
 

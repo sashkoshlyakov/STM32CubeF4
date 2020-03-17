@@ -68,9 +68,6 @@ In an infinite loop, LED2 toggles spaced out over 1s delay.
 @note The application needs to ensure that the TIM5 time base is always set to 1 millisecond
       to have correct HAL operation.
 
-@par Keywords
-
-System, General purpose Timer, Time base, HAL
 
 @par Directory contents
 

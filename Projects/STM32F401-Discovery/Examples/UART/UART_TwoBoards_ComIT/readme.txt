@@ -87,10 +87,6 @@ position of the transmitted data.
 @note The application needs to ensure that the SysTick time base is always set to 1 millisecond
       to have correct HAL operation.
 
-@par Keywords
-
-Connectivity, UART, Baud rate, RS-232, Full-duplex, Interrupt, Parity, Stop bit, Transmission
-
 @par Directory contents 
 
   - UART/UART_TwoBoards_ComIT/Inc/stm32f4xx_hal_conf.h    HAL configuration file
@@ -112,7 +108,6 @@ Connectivity, UART, Baud rate, RS-232, Full-duplex, Interrupt, Parity, Stop bit,
   - STM32F401-Discovery RevB set-up
     - Connect a wire between 1st board PA2 pin (UART Tx) to 2nd board PA3 pin (UART Rx)
     - Connect a wire between 1st board PA3 pin (UART Rx) to 2nd board PA2 pin (UART Tx)
-    - Connect 1st board GND to 2nd Board GND
   
 @par How to use it ? 
 

@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  *                      http://www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -22,7 +22,7 @@
 #define __USB_AUDIO_H
 
 #ifdef __cplusplus
-extern "C" {
+ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -49,14 +49,6 @@ extern "C" {
 #ifndef USBD_MAX_NUM_INTERFACES
 #define USBD_MAX_NUM_INTERFACES                       1U
 #endif /* USBD_AUDIO_FREQ */
-
-#ifndef AUDIO_HS_BINTERVAL
-#define AUDIO_HS_BINTERVAL                            0x01U
-#endif /* AUDIO_HS_BINTERVAL */
-
-#ifndef AUDIO_FS_BINTERVAL
-#define AUDIO_FS_BINTERVAL                            0x01U
-#endif /* AUDIO_FS_BINTERVAL */
 
 #define AUDIO_OUT_EP                                  0x01U
 #define USB_AUDIO_CONFIG_DESC_SIZ                     0x6DU
@@ -99,9 +91,6 @@ extern "C" {
 
 #define AUDIO_OUT_STREAMING_CTRL                      0x02U
 
-#define AUDIO_OUT_TC                                  0x01U
-#define AUDIO_IN_TC                                   0x02U
-
 
 #define AUDIO_OUT_PACKET                              (uint16_t)(((USBD_AUDIO_FREQ * 2U * 2U) / 1000U))
 #define AUDIO_DEFAULT_VOLUME                          70U
@@ -112,13 +101,13 @@ extern "C" {
 /* Total size of the audio transfer buffer */
 #define AUDIO_TOTAL_BUF_SIZE                          ((uint16_t)(AUDIO_OUT_PACKET * AUDIO_OUT_PACKET_NUM))
 
-/* Audio Commands enumeration */
+    /* Audio Commands enumeration */
 typedef enum
 {
   AUDIO_CMD_START = 1,
   AUDIO_CMD_PLAY,
   AUDIO_CMD_STOP,
-} AUDIO_CMD_TypeDef;
+}AUDIO_CMD_TypeDef;
 
 
 typedef enum
@@ -127,7 +116,8 @@ typedef enum
   AUDIO_OFFSET_HALF,
   AUDIO_OFFSET_FULL,
   AUDIO_OFFSET_UNKNOWN,
-} AUDIO_OffsetTypeDef;
+}
+AUDIO_OffsetTypeDef;
 /**
   * @}
   */
@@ -136,37 +126,40 @@ typedef enum
 /** @defgroup USBD_CORE_Exported_TypesDefinitions
   * @{
   */
-typedef struct
+ typedef struct
 {
-  uint8_t cmd;
-  uint8_t data[USB_MAX_EP0_SIZE];
-  uint8_t len;
-  uint8_t unit;
-} USBD_AUDIO_ControlTypeDef;
+   uint8_t cmd;
+   uint8_t data[USB_MAX_EP0_SIZE];
+   uint8_t len;
+   uint8_t unit;
+}
+USBD_AUDIO_ControlTypeDef;
 
 
+
 typedef struct
 {
-  uint32_t alt_setting;
-  uint8_t buffer[AUDIO_TOTAL_BUF_SIZE];
-  AUDIO_OffsetTypeDef offset;
-  uint8_t rd_enable;
-  uint16_t rd_ptr;
-  uint16_t wr_ptr;
+  uint32_t                  alt_setting;
+  uint8_t                   buffer[AUDIO_TOTAL_BUF_SIZE];
+  AUDIO_OffsetTypeDef       offset;
+  uint8_t                    rd_enable;
+  uint16_t                   rd_ptr;
+  uint16_t                   wr_ptr;
   USBD_AUDIO_ControlTypeDef control;
-} USBD_AUDIO_HandleTypeDef;
+}
+USBD_AUDIO_HandleTypeDef;
 
 
 typedef struct
 {
-  int8_t (*Init)(uint32_t AudioFreq, uint32_t Volume, uint32_t options);
-  int8_t (*DeInit)(uint32_t options);
-  int8_t (*AudioCmd)(uint8_t *pbuf, uint32_t size, uint8_t cmd);
-  int8_t (*VolumeCtl)(uint8_t vol);
-  int8_t (*MuteCtl)(uint8_t cmd);
-  int8_t (*PeriodicTC)(uint8_t *pbuf, uint32_t size, uint8_t cmd);
-  int8_t (*GetState)(void);
-} USBD_AUDIO_ItfTypeDef;
+    int8_t  (*Init)         (uint32_t  AudioFreq, uint32_t Volume, uint32_t options);
+    int8_t  (*DeInit)       (uint32_t options);
+    int8_t  (*AudioCmd)     (uint8_t* pbuf, uint32_t size, uint8_t cmd);
+    int8_t  (*VolumeCtl)    (uint8_t vol);
+    int8_t  (*MuteCtl)      (uint8_t cmd);
+    int8_t  (*PeriodicTC)   (uint8_t cmd);
+    int8_t  (*GetState)     (void);
+}USBD_AUDIO_ItfTypeDef;
 /**
   * @}
   */
@@ -185,8 +178,8 @@ typedef struct
   * @{
   */
 
-extern USBD_ClassTypeDef USBD_AUDIO;
-#define USBD_AUDIO_CLASS &USBD_AUDIO
+extern USBD_ClassTypeDef  USBD_AUDIO;
+#define USBD_AUDIO_CLASS    &USBD_AUDIO
 /**
   * @}
   */
@@ -194,10 +187,10 @@ extern USBD_ClassTypeDef USBD_AUDIO;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */
-uint8_t USBD_AUDIO_RegisterInterface(USBD_HandleTypeDef *pdev,
-                                     USBD_AUDIO_ItfTypeDef *fops);
+uint8_t  USBD_AUDIO_RegisterInterface  (USBD_HandleTypeDef   *pdev,
+                                        USBD_AUDIO_ItfTypeDef *fops);
 
-void USBD_AUDIO_Sync(USBD_HandleTypeDef *pdev, AUDIO_OffsetTypeDef offset);
+void  USBD_AUDIO_Sync (USBD_HandleTypeDef *pdev, AUDIO_OffsetTypeDef offset);
 /**
   * @}
   */

@@ -92,9 +92,6 @@ and aShowDate variables.
 @note The clock setting is configured to have the max product performance (max clock frequency) 
       so not optimized in term of power consumption.
 
-@par Keywords
-
-RTC, Timer, Timestamp, Counter, LSE, LSI, Current time, Real Time Clock
 
 @par Directory contents  
 

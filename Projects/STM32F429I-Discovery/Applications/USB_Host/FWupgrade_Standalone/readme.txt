@@ -74,9 +74,6 @@ please refer to user manual.
 For more details about the STM32Cube USB Host library, please refer to UM1720  
 "STM32Cube USB Host library".
 
-@par Keywords
-
-Firmware upgrade, USB Host, IAP, Binary
 
 @par Directory contents 
 

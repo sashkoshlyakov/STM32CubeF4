@@ -1229,18 +1229,10 @@ void CAMERA_IO_Init(void)
 void CAMERA_IO_Write(uint8_t Addr, uint16_t Reg, uint16_t Value)
 {
   uint16_t tmp = Value;
-  
-  if(Addr == CAMERA_I2C_ADDRESS_2)
-  {
-    I2Cx_WriteMultiple(Addr, Reg, FMPI2C_MEMADD_SIZE_16BIT,(uint8_t*)&Value, 1);
-  }
-  else
-  {
-    /* For S5K5CAG sensor, 16 bits accesses are used */
-    Value = ((uint16_t)(tmp >> 8) & 0x00FF);
-    Value |= ((uint16_t)(tmp << 8)& 0xFF00);
-    I2Cx_WriteMultiple(Addr, Reg, FMPI2C_MEMADD_SIZE_16BIT,(uint8_t*)&Value, 2);
-  }
+  /* For S5K5CAG sensor, 16 bits accesses are used */
+  Value = ((uint16_t)(tmp >> 8) & 0x00FF);
+  Value |= ((uint16_t)(tmp << 8)& 0xFF00);
+  I2Cx_WriteMultiple(Addr, Reg, FMPI2C_MEMADD_SIZE_16BIT,(uint8_t*)&Value, 2);
 }
 
 /**
@@ -1252,20 +1244,11 @@ void CAMERA_IO_Write(uint8_t Addr, uint16_t Reg, uint16_t Value)
 uint16_t CAMERA_IO_Read(uint8_t Addr, uint16_t Reg)
 {
   uint16_t read_value = 0, tmp = 0;
-  
-  if(Addr == CAMERA_I2C_ADDRESS_2)
-  {
-    I2Cx_ReadMultiple(Addr , Reg, FMPI2C_MEMADD_SIZE_16BIT, (uint8_t*)&read_value, 1);
-  }
-  else
-  {  
-    /* For S5K5CAG sensor, 16 bits accesses are used */
-    I2Cx_ReadMultiple(Addr, Reg, FMPI2C_MEMADD_SIZE_16BIT, (uint8_t*)&read_value, 2);
-    tmp = ((uint16_t)(read_value >> 8) & 0x00FF);
-    tmp |= ((uint16_t)(read_value << 8)& 0xFF00);
-    read_value = tmp;
-  }
-  
+  /* For S5K5CAG sensor, 16 bits accesses are used */
+  I2Cx_ReadMultiple(Addr, Reg, FMPI2C_MEMADD_SIZE_16BIT, (uint8_t*)&read_value, 2);
+  tmp = ((uint16_t)(read_value >> 8) & 0x00FF);
+  tmp |= ((uint16_t)(read_value << 8)& 0xFF00);
+  read_value = tmp;
   return read_value;
 }
 

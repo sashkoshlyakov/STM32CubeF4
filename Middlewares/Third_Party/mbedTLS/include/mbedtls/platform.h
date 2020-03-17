@@ -40,11 +40,8 @@
 #endif
 
 #if defined(MBEDTLS_HAVE_TIME)
-#include "platform_time.h"
+#include "mbedtls/platform_time.h"
 #endif
-
-#define MBEDTLS_ERR_PLATFORM_HW_ACCEL_FAILED     -0x0070 /**< Hardware accelerator failed */
-#define MBEDTLS_ERR_PLATFORM_FEATURE_UNSUPPORTED -0x0072 /**< The requested feature is not supported by the platform */
 
 #ifdef __cplusplus
 extern "C" {
@@ -318,8 +315,7 @@ int mbedtls_platform_set_nv_seed(
  * \note    This structure may be used to assist platform-specific
  *          setup or teardown operations.
  */
-typedef struct mbedtls_platform_context
-{
+typedef struct {
     char dummy; /**< A placeholder member, as empty structs are not portable. */
 }
 mbedtls_platform_context;

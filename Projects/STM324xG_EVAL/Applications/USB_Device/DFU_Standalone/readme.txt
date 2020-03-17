@@ -128,9 +128,6 @@ requirements, such as:
 
 Device's end address is the end address of the flash memory and it is dependent on the device in use.
 
-@par Keywords
-
-USB Device, DFU, Firmware upgrade
 
 @par Directory contents 
 

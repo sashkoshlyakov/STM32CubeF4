@@ -68,9 +68,6 @@ timer that calls a callback function every 200 ms to toggle the LED1.
 For more details about FreeRTOS implementation on STM32Cube, please refer to UM1722 "Developing Applications 
 on STM32Cube with RTOS".
 
-@par Keywords
-
-RTOS, FreeRTOS, Thread, Timer
 
 @par Directory contents
 

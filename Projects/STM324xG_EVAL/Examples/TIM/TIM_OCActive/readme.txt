@@ -76,9 +76,6 @@
       
 @note LED4 is turned ON, because it's sharing the same GPIO pin with the TIM3 channel 2.
 
-@par Keywords
-
-Timers, Output, Compare, Active, Signals, 
 
 @par Directory contents 
 

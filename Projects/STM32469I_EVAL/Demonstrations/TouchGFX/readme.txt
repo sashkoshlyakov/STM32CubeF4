@@ -20,7 +20,7 @@
 
 @par Description
 
-Official TouchGFX demonstration developed jointly between ST and Draupner Graphics
+This is the official TouchGFX demonstration developed jointly between ST and Draupner Graphics
 for the STM32F469 Evaluation board.
 
 Requirements:

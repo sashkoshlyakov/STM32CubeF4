@@ -108,13 +108,10 @@ int main(void)
   BSP_LED_Init(LED3);
    
   /*## Set the CRYP parameters and initialize the IP  ######################################*/ 
-  hcryp.Instance             = CRYP;
-  hcryp.Init.DataType        = CRYP_DATATYPE_32B;
-  hcryp.Init.pKey            = TDESKey;
-  hcryp.Init.Algorithm       = CRYP_TDES_ECB;
-  hcryp.Init.KeyIVConfigSkip = CRYP_KEYIVCONFIG_ALWAYS;
-
-  /* Configure the CRYP  */
+  hcryp.Instance      = CRYP;
+  hcryp.Init.DataType = CRYP_DATATYPE_32B;
+  hcryp.Init.pKey     = TDESKey;
+  hcryp.Init.Algorithm = CRYP_TDES_ECB;
   HAL_CRYP_Init(&hcryp);
   
   /*##-1- TDES ECB Encryption  #######################################*/ 

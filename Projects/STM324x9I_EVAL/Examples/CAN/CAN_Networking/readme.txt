@@ -64,9 +64,6 @@ This program behaves as follows:
     - DLC = 1 byte
     - Data: Led number that should be turned ON
 
-@par Keywords
-
-Connectivity, CAN, Communication, Transmission, Reception, Polling, Networking, Send, Receive, 
 
 @par Directory contents 
 

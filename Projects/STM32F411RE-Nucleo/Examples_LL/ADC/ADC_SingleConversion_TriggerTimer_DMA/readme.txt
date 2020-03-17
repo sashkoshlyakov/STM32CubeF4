@@ -76,9 +76,6 @@ Other peripherals used:
   DMA
   Timer
 
-@par Keywords
-
-Analog, ADC, Analog to Digital, Single conversion, Timer trigger, DMA, circular mode
 
 @par Directory contents 
 

@@ -163,7 +163,7 @@ void OTG_FS_IRQHandler(void)
   */
 void SDMMC1_IRQHandler(void)
 {
-  HAL_SD_IRQHandler(&uSdHandle);
+  BSP_SD_IRQHandler();
 }
 
 

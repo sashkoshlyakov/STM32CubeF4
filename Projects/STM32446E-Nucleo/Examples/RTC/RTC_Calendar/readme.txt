@@ -93,9 +93,6 @@ and aShowDate variables.
 @note The clock setting is configured to have the max product performance (max clock frequency) 
       so not optimized in term of power consumption.
 
-@par Keywords
-
-System, RTC, Calendar, Backup Domain, Reset
 
 @par Directory contents  
 

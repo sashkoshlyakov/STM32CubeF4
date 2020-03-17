@@ -101,10 +101,6 @@ icons.
 
 @note Make sure jumper JP3 of STM32469I-EVAL board is on position PC0, because PA4 is shared with the DCMI_HSYNC signal.
 
-@par Keywords
-
-BSP, LCD, Touchscreen, PSRAM, DMA, QSPI, Erase, Read, Write, Audio play, Record, MEMS, Audio Codec, DFSDM,
-I2S, Microphone, Headphones
 
 @par Directory contents 
 

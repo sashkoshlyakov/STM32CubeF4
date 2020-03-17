@@ -81,6 +81,7 @@ STM32 Eval board's LEDs can be used to monitor the application status:
   - LED1 is ON when the application runs successfully.
   - LED3 is ON when any error occurs.
 
+
 @note Care must be taken when using HAL_Delay(), this function provides accurate delay (in milliseconds)
       based on variable incremented in SysTick ISR. This implies that if HAL_Delay() is called from
       a peripheral ISR process, then the SysTick interrupt must have higher priority (numerically lower)
@@ -93,9 +94,6 @@ STM32 Eval board's LEDs can be used to monitor the application status:
 For more details about FatFs implementation on STM32Cube, please refer to UM1721 "Developing Applications 
 on STM32Cube with FatFs".
 
-@par Keywords
-
-Connectivity, USB Host, FatFS, FAT, File system
 
 @par Directory contents
  
@@ -111,6 +109,9 @@ Connectivity, USB Host, FatFS, FAT, File system
   - FatFs/FatFs_USBDisk/Src/system_stm32f4xx.c      STM32F4xx system clock configuration file
   - FatFs//FatFs_USBDisk/Src/usbh_conf.c            USB Host configuration file
 
+
+         
+ 
 @par Hardware and Software environment
 
   - This application runs on STM32F429xx/STM32F439xx devices.

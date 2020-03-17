@@ -66,9 +66,6 @@ The minimum frequency value to measure is (TIM4 counter clock / CCR MAX)
 @note The application needs to ensure that the SysTick time base is always set to 1 millisecond
       to have correct HAL operation.
 
-@par Keywords
-
-Timers, Input, signals, PWM, External signal, Frequency, Duty cycle, Measure
 
 @par Directory contents 
 

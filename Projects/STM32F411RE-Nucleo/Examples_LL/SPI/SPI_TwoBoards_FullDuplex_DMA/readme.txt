@@ -93,10 +93,6 @@ In case of errors, LED2 is blinking Slowly (1s).
       to have the correct behaviour of this example.
 
 
-@par Keywords
-
-Connectivity, SPI, DMA, Full-duplex, Advanced communication, Transmission, Reception, Master, Slave, MISO, MOSI
-
 @par Directory contents 
 
   - SPI/SPI_TwoBoards_FullDuplex_DMA/Inc/stm32f4xx_it.h          Interrupt handlers header file

@@ -52,11 +52,6 @@
 
 #if !defined(MBEDTLS_CCM_ALT)
 
-#define CCM_VALIDATE_RET( cond ) \
-    MBEDTLS_INTERNAL_VALIDATE_RET( cond, MBEDTLS_ERR_CCM_BAD_INPUT )
-#define CCM_VALIDATE( cond ) \
-    MBEDTLS_INTERNAL_VALIDATE( cond )
-
 #define CCM_ENCRYPT 0
 #define CCM_DECRYPT 1
 
@@ -65,7 +60,6 @@
  */
 void mbedtls_ccm_init( mbedtls_ccm_context *ctx )
 {
-    CCM_VALIDATE( ctx != NULL );
     memset( ctx, 0, sizeof( mbedtls_ccm_context ) );
 }
 
@@ -76,9 +70,6 @@ int mbedtls_ccm_setkey( mbedtls_ccm_context *ctx,
 {
     int ret;
     const mbedtls_cipher_info_t *cipher_info;
-
-    CCM_VALIDATE_RET( ctx != NULL );
-    CCM_VALIDATE_RET( key != NULL );
 
     cipher_info = mbedtls_cipher_info_from_values( cipher, keybits, MBEDTLS_MODE_ECB );
     if( cipher_info == NULL )
@@ -106,8 +97,6 @@ int mbedtls_ccm_setkey( mbedtls_ccm_context *ctx,
  */
 void mbedtls_ccm_free( mbedtls_ccm_context *ctx )
 {
-    if( ctx == NULL )
-        return;
     mbedtls_cipher_free( &ctx->cipher_ctx );
     mbedtls_platform_zeroize( ctx, sizeof( mbedtls_ccm_context ) );
 }
@@ -134,17 +123,11 @@ void mbedtls_ccm_free( mbedtls_ccm_context *ctx )
  * This avoids allocating one more 16 bytes buffer while allowing src == dst.
  */
 #define CTR_CRYPT( dst, src, len  )                                            \
-    do                                                                  \
-    {                                                                   \
-        if( ( ret = mbedtls_cipher_update( &ctx->cipher_ctx, ctr,       \
-                                           16, b, &olen ) ) != 0 )      \
-        {                                                               \
-            return( ret );                                              \
-        }                                                               \
-                                                                        \
-        for( i = 0; i < (len); i++ )                                    \
-            (dst)[i] = (src)[i] ^ b[i];                                 \
-    } while( 0 )
+    if( ( ret = mbedtls_cipher_update( &ctx->cipher_ctx, ctr, 16, b, &olen ) ) != 0 )  \
+        return( ret );                                                         \
+                                                                               \
+    for( i = 0; i < len; i++ )                                                 \
+        dst[i] = src[i] ^ b[i];
 
 /*
  * Authenticated encryption or decryption
@@ -327,12 +310,6 @@ int mbedtls_ccm_star_encrypt_and_tag( mbedtls_ccm_context *ctx, size_t length,
                          const unsigned char *input, unsigned char *output,
                          unsigned char *tag, size_t tag_len )
 {
-    CCM_VALIDATE_RET( ctx != NULL );
-    CCM_VALIDATE_RET( iv != NULL );
-    CCM_VALIDATE_RET( add_len == 0 || add != NULL );
-    CCM_VALIDATE_RET( length == 0 || input != NULL );
-    CCM_VALIDATE_RET( length == 0 || output != NULL );
-    CCM_VALIDATE_RET( tag_len == 0 || tag != NULL );
     return( ccm_auth_crypt( ctx, CCM_ENCRYPT, length, iv, iv_len,
                             add, add_len, input, output, tag, tag_len ) );
 }
@@ -343,12 +320,6 @@ int mbedtls_ccm_encrypt_and_tag( mbedtls_ccm_context *ctx, size_t length,
                          const unsigned char *input, unsigned char *output,
                          unsigned char *tag, size_t tag_len )
 {
-    CCM_VALIDATE_RET( ctx != NULL );
-    CCM_VALIDATE_RET( iv != NULL );
-    CCM_VALIDATE_RET( add_len == 0 || add != NULL );
-    CCM_VALIDATE_RET( length == 0 || input != NULL );
-    CCM_VALIDATE_RET( length == 0 || output != NULL );
-    CCM_VALIDATE_RET( tag_len == 0 || tag != NULL );
     if( tag_len == 0 )
         return( MBEDTLS_ERR_CCM_BAD_INPUT );
 
@@ -369,13 +340,6 @@ int mbedtls_ccm_star_auth_decrypt( mbedtls_ccm_context *ctx, size_t length,
     unsigned char check_tag[16];
     unsigned char i;
     int diff;
-
-    CCM_VALIDATE_RET( ctx != NULL );
-    CCM_VALIDATE_RET( iv != NULL );
-    CCM_VALIDATE_RET( add_len == 0 || add != NULL );
-    CCM_VALIDATE_RET( length == 0 || input != NULL );
-    CCM_VALIDATE_RET( length == 0 || output != NULL );
-    CCM_VALIDATE_RET( tag_len == 0 || tag != NULL );
 
     if( ( ret = ccm_auth_crypt( ctx, CCM_DECRYPT, length,
                                 iv, iv_len, add, add_len,
@@ -403,13 +367,6 @@ int mbedtls_ccm_auth_decrypt( mbedtls_ccm_context *ctx, size_t length,
                       const unsigned char *input, unsigned char *output,
                       const unsigned char *tag, size_t tag_len )
 {
-    CCM_VALIDATE_RET( ctx != NULL );
-    CCM_VALIDATE_RET( iv != NULL );
-    CCM_VALIDATE_RET( add_len == 0 || add != NULL );
-    CCM_VALIDATE_RET( length == 0 || input != NULL );
-    CCM_VALIDATE_RET( length == 0 || output != NULL );
-    CCM_VALIDATE_RET( tag_len == 0 || tag != NULL );
-
     if( tag_len == 0 )
         return( MBEDTLS_ERR_CCM_BAD_INPUT );
 
@@ -424,8 +381,7 @@ int mbedtls_ccm_auth_decrypt( mbedtls_ccm_context *ctx, size_t length,
  */
 
 #define NB_TESTS 3
-#define CCM_SELFTEST_PT_MAX_LEN 24
-#define CCM_SELFTEST_CT_MAX_LEN 32
+
 /*
  * The data is the same for all tests, only the used length changes
  */
@@ -445,7 +401,7 @@ static const unsigned char ad[] = {
     0x10, 0x11, 0x12, 0x13
 };
 
-static const unsigned char msg[CCM_SELFTEST_PT_MAX_LEN] = {
+static const unsigned char msg[] = {
     0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27,
     0x28, 0x29, 0x2a, 0x2b, 0x2c, 0x2d, 0x2e, 0x2f,
     0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37,
@@ -456,7 +412,7 @@ static const size_t add_len[NB_TESTS] = { 8, 16, 20 };
 static const size_t msg_len[NB_TESTS] = { 4, 16, 24 };
 static const size_t tag_len[NB_TESTS] = { 4, 6,  8  };
 
-static const unsigned char res[NB_TESTS][CCM_SELFTEST_CT_MAX_LEN] = {
+static const unsigned char res[NB_TESTS][32] = {
     {   0x71, 0x62, 0x01, 0x5b, 0x4d, 0xac, 0x25, 0x5d },
     {   0xd2, 0xa1, 0xf0, 0xe0, 0x51, 0xea, 0x5f, 0x62,
         0x08, 0x1a, 0x77, 0x92, 0x07, 0x3d, 0x59, 0x3d,
@@ -470,13 +426,7 @@ static const unsigned char res[NB_TESTS][CCM_SELFTEST_CT_MAX_LEN] = {
 int mbedtls_ccm_self_test( int verbose )
 {
     mbedtls_ccm_context ctx;
-    /*
-     * Some hardware accelerators require the input and output buffers
-     * would be in RAM, because the flash is not accessible.
-     * Use buffers on the stack to hold the test vectors data.
-     */
-    unsigned char plaintext[CCM_SELFTEST_PT_MAX_LEN];
-    unsigned char ciphertext[CCM_SELFTEST_CT_MAX_LEN];
+    unsigned char out[32];
     size_t i;
     int ret;
 
@@ -495,32 +445,27 @@ int mbedtls_ccm_self_test( int verbose )
         if( verbose != 0 )
             mbedtls_printf( "  CCM-AES #%u: ", (unsigned int) i + 1 );
 
-        memset( plaintext, 0, CCM_SELFTEST_PT_MAX_LEN );
-        memset( ciphertext, 0, CCM_SELFTEST_CT_MAX_LEN );
-        memcpy( plaintext, msg, msg_len[i] );
-
         ret = mbedtls_ccm_encrypt_and_tag( &ctx, msg_len[i],
-                                           iv, iv_len[i], ad, add_len[i],
-                                           plaintext, ciphertext,
-                                           ciphertext + msg_len[i], tag_len[i] );
+                                   iv, iv_len[i], ad, add_len[i],
+                                   msg, out,
+                                   out + msg_len[i], tag_len[i] );
 
         if( ret != 0 ||
-            memcmp( ciphertext, res[i], msg_len[i] + tag_len[i] ) != 0 )
+            memcmp( out, res[i], msg_len[i] + tag_len[i] ) != 0 )
         {
             if( verbose != 0 )
                 mbedtls_printf( "failed\n" );
 
             return( 1 );
         }
-        memset( plaintext, 0, CCM_SELFTEST_PT_MAX_LEN );
 
         ret = mbedtls_ccm_auth_decrypt( &ctx, msg_len[i],
-                                        iv, iv_len[i], ad, add_len[i],
-                                        ciphertext, plaintext,
-                                        ciphertext + msg_len[i], tag_len[i] );
+                                iv, iv_len[i], ad, add_len[i],
+                                res[i], out,
+                                res[i] + msg_len[i], tag_len[i] );
 
         if( ret != 0 ||
-            memcmp( plaintext, msg, msg_len[i] ) != 0 )
+            memcmp( out, msg, msg_len[i] ) != 0 )
         {
             if( verbose != 0 )
                 mbedtls_printf( "failed\n" );

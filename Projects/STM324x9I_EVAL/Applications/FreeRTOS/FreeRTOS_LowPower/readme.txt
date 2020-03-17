@@ -90,9 +90,6 @@ The RTOS tick is suppressed while the MCU is in its low power state.
 For more details about FreeRTOS implementation on STM32Cube, please refer to UM1722 "Developing Applications 
 on STM32Cube with RTOS".
 
-@par Keywords
-
-RTOS, FreeRTOS, Low power, MPU
 
 @par Directory contents
 
@@ -102,6 +99,7 @@ RTOS, FreeRTOS, Low power, MPU
     - FreeRTOS/FreeRTOS_LowPower/Inc/FreeRTOSConfig.h      FreeRTOS Configuration file
     - FreeRTOS/FreeRTOS_LowPower/Src/main.c                Main program
     - FreeRTOS/FreeRTOS_LowPower/Src/stm32f4xx_it.c        Interrupt handlers
+
 
 @par Hardware and Software environment
 
